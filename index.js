@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 let bodyParser = require('body-parser')
-const req = require('express/lib/request')
 
 app.use(cors())
 
@@ -27,7 +26,7 @@ app.post('/', (req, res, next) => {
         fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${city}&aqi=no`)
         .then(res => res.json())
         .then(data => { 
-            let options = {
+            let options = { //Each step could be a .then and pass to the next step.
                     selectedCity: data.location.name,
                     selectedCountry: data.location.country,
                     time: data.location.localtime,
@@ -66,8 +65,8 @@ app.use((err, req, res, next) => {
 })
 
 
-let city = 'London'
-const url = 'http://api.weatherapi.com/v1/current.json'
+// let city = 'London'
+// const url = 'http://api.weatherapi.com/v1/current.json'
 
 // app.post('/', (req, res) => {
 //     // 
