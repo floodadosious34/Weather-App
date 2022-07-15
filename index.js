@@ -1,9 +1,10 @@
-require("dotenv").config()
+
 const express = require('express')
 const cors = require('cors')
 const app = express()
 let bodyParser = require('body-parser')
-let uri = process.env.WEATHER_API_KEY
+require('dotenv').config()
+const uri = process.env.WEATHER_API_KEY
 
 app.use(cors())
 
@@ -13,7 +14,7 @@ app.set('views', './views')
 app.use('/static', express.static('public'))
 app.set('view engine', 'pug')
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
