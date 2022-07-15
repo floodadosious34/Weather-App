@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 let bodyParser = require('body-parser')
+let uri = process.env.WEATHER_API_KEY
 
 app.use(cors())
 
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res, next) => {
     let city = req.body.citySelection
     if (city) {
-        fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${city}&aqi=no`)
+        fetch(`http://api.weatherapi.com/v1/current.json?key=${uri}&q=${city}&aqi=no`)
         .then(res => res.json())
         .then(data => { 
             let options = { //Each step could be a .then and pass to the next step.
@@ -88,6 +89,6 @@ app.use((err, req, res, next) => {
 //     request(url, params)
 // })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log("Running on 3000")
 })
